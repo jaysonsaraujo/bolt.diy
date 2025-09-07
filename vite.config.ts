@@ -13,16 +13,29 @@ dotenv.config();
 
 export default defineConfig((config) => {
   return {
+    
     // === Injected by patch: accept any host (use with caution; disables host check) ===
-    server: {
+    
+      server: {
       host: true,
-      // Allow all hosts (Vite 5/6): set to true to disable allowed host check
-      allowedHosts: true,
+      allowedHosts: [
+        'bolt.botmagic.com.br',
+        process.env.__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS || '.easypanel.host'
+      ],
+      hmr: {
+        protocol: 'wss',
+        host: 'bolt.botmagic.com.br',
+        clientPort: 443
+      },
     },
     preview: {
       host: true,
-      allowedHosts: true,
+      allowedHosts: [
+        'bolt.botmagic.com.br',
+        process.env.__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS || '.easypanel.host'
+      ],
     },
+
     // === End injected ===
 
     define: {
