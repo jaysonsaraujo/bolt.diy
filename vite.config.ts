@@ -13,6 +13,18 @@ dotenv.config();
 
 export default defineConfig((config) => {
   return {
+    // === Injected by patch: accept any host (use with caution; disables host check) ===
+    server: {
+      host: true,
+      // Allow all hosts (Vite 5/6): set to true to disable allowed host check
+      allowedHosts: true,
+    },
+    preview: {
+      host: true,
+      allowedHosts: true,
+    },
+    // === End injected ===
+
     define: {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     },
