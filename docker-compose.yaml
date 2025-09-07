@@ -15,6 +15,13 @@ services:
       - COMPOSE_PROFILES=production
       # No strictly needed but serving as hints for Coolify
       - PORT=5173
+      # === Liberar domínio no Vite (produção) ===
+      - __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS=bolt.botmagic.com.br
+      # (Opcional) Se seu vite.config ler HMR por env, mantém estável atrás de HTTPS/proxy:
+      - VITE_HMR_PROTOCOL=wss
+      - VITE_HMR_HOST=bolt.botmagic.com.br
+      - VITE_HMR_PORT=443
+      # === APIs/Keys existentes ===
       - GROQ_API_KEY=${GROQ_API_KEY}
       - HuggingFace_API_KEY=${HuggingFace_API_KEY}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
@@ -45,11 +52,14 @@ services:
     environment:
       - NODE_ENV=development
       - VITE_HMR_PROTOCOL=ws
-      - VITE_HMR_HOST=localhost
+      - VITE_HMR_HOST=localhost  # se for acessar via domínio, troque para bolt.botmagic.com.br e use wss/443
       - VITE_HMR_PORT=5173
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
       - PORT=5173
+      # (Opcional) liberar domínio também no dev:
+      - __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS=bolt.botmagic.com.br
+      # === APIs/Keys ===
       - GROQ_API_KEY=${GROQ_API_KEY}
       - HuggingFace_API_KEY=${HuggingFace_API_KEY}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
@@ -86,6 +96,13 @@ services:
       - COMPOSE_PROFILES=production
       # No strictly needed but serving as hints for Coolify
       - PORT=5173
+      # === Liberar domínio no Vite (prebuild) ===
+      - __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS=bolt.botmagic.com.br
+      # (Opcional) HMR por env, se o seu vite.config consumir:
+      - VITE_HMR_PROTOCOL=wss
+      - VITE_HMR_HOST=bolt.botmagic.com.br
+      - VITE_HMR_PORT=443
+      # === Demais envs ===
       - OLLAMA_API_BASE_URL=http://127.0.0.1:11434
       - DEFAULT_NUM_CTX=${DEFAULT_NUM_CTX:-32768}
       - RUNNING_IN_DOCKER=true
