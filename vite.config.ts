@@ -13,31 +13,6 @@ dotenv.config();
 
 export default defineConfig((config) => {
   return {
-    
-    // === Injected by patch: accept any host (use with caution; disables host check) ===
-    
-      server: {
-      host: true,
-      allowedHosts: [
-        'bolt.botmagic.com.br',
-        process.env.__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS || '.easypanel.host'
-      ],
-      hmr: {
-        protocol: 'wss',
-        host: 'bolt.botmagic.com.br',
-        clientPort: 443
-      },
-    },
-    preview: {
-      host: true,
-      allowedHosts: [
-        'bolt.botmagic.com.br',
-        process.env.__VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS || '.easypanel.host'
-      ],
-    },
-
-    // === End injected ===
-
     define: {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     },
